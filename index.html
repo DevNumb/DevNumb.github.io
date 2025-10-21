@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MEBCO - Middle East Battery Company Blog</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        .logo p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.8;
+        }
+
+        .hero {
+            background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(30, 60, 114, 0.8)), 
+                        url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%231e3c72" width="1200" height="400"/><path fill="%232a5298" opacity="0.3" d="M0,200 Q300,250 600,200 T1200,200 L1200,400 L0,400 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .blog-section {
+            padding: 3rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: #1e3c72;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+        }
+
+        .blog-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+        }
+
+        .blog-content {
+            padding: 1.5rem;
+        }
+
+        .blog-meta {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .blog-content h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+
+        .blog-content p {
+            color: #666;
+            margin-bottom: 1rem;
+        }
+
+        .read-more {
+            display: inline-block;
+            padding: 0.5rem 1.5rem;
+            background: #1e3c72;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .read-more:hover {
+            background: #2a5298;
+        }
+
+        .about-section {
+            background: white;
+            padding: 3rem 0;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .about-card {
+            padding: 2rem;
+            background: #f9f9f9;
+            border-radius: 10px;
+            border-left: 4px solid #1e3c72;
+        }
+
+        .about-card h3 {
+            color: #1e3c72;
+            margin-bottom: 1rem;
+        }
+
+        footer {
+            background: #1e3c72;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            nav ul {
+                flex-direction: column;
+                gap: 1rem;
+                margin-top: 1rem;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <h1>MEBCO</h1>
+                    <p>Middle East Battery Company</p>
+                </div>
+                <nav>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero" id="home">
+        <div class="container">
+            <h2>Powering the Middle East Since 1995</h2>
+            <p>Leading manufacturer of automotive sealed maintenance-free batteries, delivering excellence and innovation across the region</p>
+        </div>
+    </section>
+
+    <section class="blog-section" id="blog">
+        <div class="container">
+            <h2 class="section-title">Latest From MEBCO</h2>
+            
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">🔋</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 October 2025</span>
+                            <span>📁 Technology</span>
+                        </div>
+                        <h3>Advanced Battery Technology at MEBCO</h3>
+                        <p>MEBCO operates the largest and most advanced battery manufacturing plant in the region. Our state-of-the-art facility produces automotive sealed maintenance-free batteries using cutting-edge technology and quality control processes.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">🤝</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 October 2025</span>
+                            <span>📁 Partnership</span>
+                        </div>
+                        <h3>Strategic Partnership with Clarios</h3>
+                        <p>As a joint venture between Clarios (global leader in energy storage) and prominent Saudi investors including Zamil Group, Al-Jomaih Holding, and Al-Mutlaq Group, MEBCO combines international expertise with local market knowledge.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">🚗</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 September 2025</span>
+                            <span>📁 Products</span>
+                        </div>
+                        <h3>ACDelco Batteries: Quality You Can Trust</h3>
+                        <p>MEBCO is the exclusive manufacturer of ACDelco maintenance-free batteries in the region. Our products power vehicles from leading brands including GM, Ford, Toyota, Nissan, Honda, and Mazda across the Middle East and beyond.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">🌊</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 September 2025</span>
+                            <span>📁 Products</span>
+                        </div>
+                        <h3>Beyond Automotive: Marine & Deep Cycle Solutions</h3>
+                        <p>MEBCO's product range extends beyond automotive applications. We manufacture specialized batteries for marine vessels, solar PV systems, UPS backup power, and deep cycle applications, serving diverse energy storage needs.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">📈</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 August 2025</span>
+                            <span>📁 Growth</span>
+                        </div>
+                        <h3>Three Decades of Excellence</h3>
+                        <p>Since starting production in 1998 with a capacity of 750,000 batteries per year, MEBCO has grown to become the largest lead-acid battery manufacturer in the Arab world, with production capacity exceeding 3.4 million batteries annually.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card">
+                    <div class="blog-image">🏭</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 August 2025</span>
+                            <span>📁 Facility</span>
+                        </div>
+                        <h3>Strategic Location in Dammam</h3>
+                        <p>Located in the 2nd Industrial City near the Dammam seaport in Saudi Arabia, MEBCO's facility is strategically positioned for efficient distribution throughout the Middle East, South Africa, the Levant, and international markets.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="about-section" id="about">
+        <div class="container">
+            <h2 class="section-title">What We Do at MEBCO</h2>
+            
+            <div class="about-content">
+                <div class="about-card">
+                    <h3>Manufacturing Excellence</h3>
+                    <p>MEBCO specializes in manufacturing automotive sealed maintenance-free batteries for all vehicle types. Our advanced technology plant represents the pinnacle of battery manufacturing in the region.</p>
+                </div>
+
+                <div class="about-card">
+                    <h3>Product Range</h3>
+                    <p>We produce batteries for automotive applications, marine vessels, solar PV systems, UPS backup power, and deep cycle requirements. All products are manufactured to the highest quality standards under the trusted ACDelco brand.</p>
+                </div>
+
+                <div class="about-card">
+                    <h3>Market Leadership</h3>
+                    <p>As the largest lead-acid battery manufacturer in the Arab world, we serve major automotive manufacturers and supply markets across the Middle East, Africa, and Asia with reliable energy storage solutions.</p>
+                </div>
+
+                <div class="about-card">
+                    <h3>Economic Partnership</h3>
+                    <p>Established in 1995 as part of an economic offset program, MEBCO represents a successful strategic partnership between international automotive leaders and prominent Saudi business groups.</p>
+                </div>
+
+                <div class="about-card">
+                    <h3>Innovation & Technology</h3>
+                    <p>Our facility utilizes the latest battery manufacturing technology, ensuring consistent quality, reliability, and performance. We continuously invest in innovation to meet evolving energy storage needs.</p>
+                </div>
+
+                <div class="about-card">
+                    <h3>Quality Commitment</h3>
+                    <p>Every battery that leaves our facility meets stringent quality standards. We're committed to providing power solutions that automotive manufacturers and consumers can trust for long-lasting performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <div class="container">
+            <h3>MEBCO - Middle East Battery Company</h3>
+            <p>2nd Industrial City, Dammam, Saudi Arabia</p>
+            <p style="margin-top: 1rem;">Powering Progress Since 1995</p>
+            <p style="margin-top: 2rem; font-size: 0.9rem;">&copy; 2025 MEBCO. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
