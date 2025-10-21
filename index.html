@@ -21,8 +21,16 @@
         header {
             background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
-            padding: 2rem 0;
+            padding: 1rem 0;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            transition: padding 0.3s;
+        }
+
+        header.scrolled {
+            padding: 0.5rem 0;
         }
 
         .container {
@@ -41,6 +49,7 @@
         .logo h1 {
             font-size: 2.5rem;
             font-weight: bold;
+            cursor: pointer;
         }
 
         .logo p {
@@ -59,42 +68,149 @@
             color: white;
             text-decoration: none;
             transition: opacity 0.3s;
+            cursor: pointer;
         }
 
         nav a:hover {
             opacity: 0.8;
         }
 
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
         .hero {
-            background: linear-gradient(rgba(30, 60, 114, 0.8), rgba(30, 60, 114, 0.8)), 
+            background: linear-gradient(rgba(30, 60, 114, 0.9), rgba(30, 60, 114, 0.9)), 
                         url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400"><rect fill="%231e3c72" width="1200" height="400"/><path fill="%232a5298" opacity="0.3" d="M0,200 Q300,250 600,200 T1200,200 L1200,400 L0,400 Z"/></svg>');
             background-size: cover;
             background-position: center;
             color: white;
-            padding: 4rem 0;
+            padding: 6rem 0;
             text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: moveBackground 20s linear infinite;
+        }
+
+        @keyframes moveBackground {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h2 {
-            font-size: 2.5rem;
+            font-size: 3rem;
             margin-bottom: 1rem;
+            animation: fadeInUp 1s ease;
         }
 
         .hero p {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 800px;
-            margin: 0 auto;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #4CAF50;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .blog-section {
-            padding: 3rem 0;
+            padding: 4rem 0;
         }
 
         .section-title {
             text-align: center;
-            font-size: 2rem;
+            font-size: 2.5rem;
             margin-bottom: 3rem;
             color: #1e3c72;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            margin: 1rem auto;
+        }
+
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            background: white;
+            border: 2px solid #1e3c72;
+            color: #1e3c72;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background: #1e3c72;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 10px rgba(30, 60, 114, 0.3);
         }
 
         .blog-grid {
@@ -106,26 +222,53 @@
 
         .blog-card {
             background: white;
-            border-radius: 10px;
+            border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s, box-shadow 0.3s;
+            transition: all 0.3s;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInCard 0.5s ease forwards;
+        }
+
+        @keyframes fadeInCard {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .blog-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+            transform: translateY(-10px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
         }
 
         .blog-image {
             width: 100%;
-            height: 200px;
+            height: 220px;
             background: linear-gradient(135deg, #2a5298 0%, #1e3c72 100%);
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
-            font-size: 3rem;
+            font-size: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .blog-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .blog-card:hover .blog-image::before {
+            left: 100%;
         }
 
         .blog-content {
@@ -138,6 +281,7 @@
             font-size: 0.85rem;
             color: #666;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
         }
 
         .blog-content h3 {
@@ -149,25 +293,27 @@
         .blog-content p {
             color: #666;
             margin-bottom: 1rem;
+            line-height: 1.7;
         }
 
         .read-more {
             display: inline-block;
-            padding: 0.5rem 1.5rem;
-            background: #1e3c72;
+            padding: 0.6rem 1.8rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
             color: white;
             text-decoration: none;
-            border-radius: 5px;
-            transition: background 0.3s;
+            border-radius: 25px;
+            transition: all 0.3s;
         }
 
         .read-more:hover {
-            background: #2a5298;
+            transform: translateX(5px);
+            box-shadow: 0 4px 15px rgba(30, 60, 114, 0.4);
         }
 
         .about-section {
             background: white;
-            padding: 3rem 0;
+            padding: 4rem 0;
         }
 
         .about-content {
@@ -179,22 +325,248 @@
 
         .about-card {
             padding: 2rem;
-            background: #f9f9f9;
-            border-radius: 10px;
-            border-left: 4px solid #1e3c72;
+            background: linear-gradient(135deg, #f9f9f9, #ffffff);
+            border-radius: 15px;
+            border-left: 5px solid #1e3c72;
+            transition: all 0.3s;
+        }
+
+        .about-card:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
 
         .about-card h3 {
             color: #1e3c72;
             margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .icon {
+            font-size: 1.5rem;
+        }
+
+        .timeline-section {
+            padding: 4rem 0;
+            background: #f9f9f9;
+        }
+
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 3rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(180deg, #1e3c72, #2a5298);
+        }
+
+        .timeline-item {
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            width: 45%;
+            position: relative;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-content {
+            margin-left: 55%;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            margin-right: 55%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 20px;
+            background: #1e3c72;
+            border: 4px solid white;
+            border-radius: 50%;
+            top: 2rem;
+            box-shadow: 0 0 0 4px rgba(30, 60, 114, 0.2);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 0.5rem;
+        }
+
+        .certifications {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+            margin-top: 3rem;
+        }
+
+        .cert-badge {
+            background: white;
+            padding: 1.5rem 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .cert-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .cert-badge .cert-icon {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-section {
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            padding: 4rem 0;
+            color: white;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-family: inherit;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #1e3c72;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(30, 60, 114, 0.4);
+        }
+
+        .success-message {
+            display: none;
+            background: #4CAF50;
+            color: white;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            text-align: center;
         }
 
         footer {
+            background: #0d1b2a;
+            color: white;
+            padding: 3rem 0 1rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            color: #4CAF50;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .scroll-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
             background: #1e3c72;
             color: white;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: 3rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .scroll-top:hover {
+            background: #2a5298;
+            transform: translateY(-5px);
+        }
+
+        .scroll-top.show {
+            display: flex;
         }
 
         @media (max-width: 768px) {
@@ -203,36 +575,76 @@
                 text-align: center;
             }
 
+            .mobile-menu-btn {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 20px;
+            }
+
+            nav {
+                width: 100%;
+            }
+
             nav ul {
                 flex-direction: column;
                 gap: 1rem;
                 margin-top: 1rem;
+                display: none;
+            }
+
+            nav ul.active {
+                display: flex;
             }
 
             .hero h2 {
                 font-size: 2rem;
             }
 
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .hero-stats {
+                gap: 2rem;
+            }
+
             .blog-grid {
                 grid-template-columns: 1fr;
+            }
+
+            .timeline::before {
+                left: 20px;
+            }
+
+            .timeline-content {
+                width: calc(100% - 60px);
+                margin-left: 60px !important;
+                margin-right: 0 !important;
+            }
+
+            .timeline-dot {
+                left: 20px;
             }
         }
     </style>
 </head>
 <body>
-    <header>
+    <header id="header">
         <div class="container">
             <div class="header-content">
-                <div class="logo">
+                <div class="logo" onclick="scrollToSection('home')">
                     <h1>MEBCO</h1>
                     <p>Middle East Battery Company</p>
                 </div>
+                <button class="mobile-menu-btn" onclick="toggleMenu()">☰</button>
                 <nav>
-                    <ul>
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#contact">Contact</a></li>
+                    <ul id="nav-menu">
+                        <li><a onclick="scrollToSection('home')">Home</a></li>
+                        <li><a onclick="scrollToSection('blog')">Blog</a></li>
+                        <li><a onclick="scrollToSection('about')">About</a></li>
+                        <li><a onclick="scrollToSection('timeline')">History</a></li>
+                        <li><a onclick="scrollToSection('contact')">Contact</a></li>
                     </ul>
                 </nav>
             </div>
@@ -240,9 +652,25 @@
     </header>
 
     <section class="hero" id="home">
-        <div class="container">
-            <h2>Powering the Middle East Since 1995</h2>
-            <p>Leading manufacturer of automotive sealed maintenance-free batteries, delivering excellence and innovation across the region</p>
+        <div class="hero-content">
+            <div class="container">
+                <h2>Powering the Middle East Since 1995</h2>
+                <p>The largest and most advanced lead-acid battery manufacturing plant in the Arab world, delivering excellence and innovation across the region</p>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">5M+</div>
+                        <div class="stat-label">Annual Production Capacity</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">25+</div>
+                        <div class="stat-label">Years of Excellence</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">#1</div>
+                        <div class="stat-label">In the Arab World</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -250,73 +678,80 @@
         <div class="container">
             <h2 class="section-title">Latest From MEBCO</h2>
             
-            <div class="blog-grid">
-                <article class="blog-card">
+            <div class="filter-tabs">
+                <button class="filter-btn active" onclick="filterBlogs('all')">All Posts</button>
+                <button class="filter-btn" onclick="filterBlogs('technology')">Technology</button>
+                <button class="filter-btn" onclick="filterBlogs('products')">Products</button>
+                <button class="filter-btn" onclick="filterBlogs('company')">Company News</button>
+            </div>
+            
+            <div class="blog-grid" id="blog-grid">
+                <article class="blog-card" data-category="technology">
                     <div class="blog-image">🔋</div>
                     <div class="blog-content">
                         <div class="blog-meta">
                             <span>📅 October 2025</span>
                             <span>📁 Technology</span>
                         </div>
-                        <h3>Advanced Battery Technology at MEBCO</h3>
-                        <p>MEBCO operates the largest and most advanced battery manufacturing plant in the region. Our state-of-the-art facility produces automotive sealed maintenance-free batteries using cutting-edge technology and quality control processes.</p>
+                        <h3>State-of-the-Art Stamped Grid Technology</h3>
+                        <p>MEBCO's manufacturing facility utilizes the latest stamped grid technology for battery production, ensuring superior performance and reliability. Our advanced production methods meet the highest quality standards in the automotive industry.</p>
                         <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="blog-card">
+                <article class="blog-card" data-category="company">
                     <div class="blog-image">🤝</div>
                     <div class="blog-content">
                         <div class="blog-meta">
                             <span>📅 October 2025</span>
                             <span>📁 Partnership</span>
                         </div>
-                        <h3>Strategic Partnership with Clarios</h3>
-                        <p>As a joint venture between Clarios (global leader in energy storage) and prominent Saudi investors including Zamil Group, Al-Jomaih Holding, and Al-Mutlaq Group, MEBCO combines international expertise with local market knowledge.</p>
+                        <h3>Strategic Partnership Excellence</h3>
+                        <p>As a joint venture between Clarios (formerly Johnson Controls, the world's leading battery manufacturer) and prominent Saudi investors including Zamil Group, Al-Jomaih Holding, Al-Mutlaq Group, Al-Essa Group, and SASCO, MEBCO combines global expertise with regional market knowledge.</p>
                         <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="blog-card">
+                <article class="blog-card" data-category="products">
                     <div class="blog-image">🚗</div>
                     <div class="blog-content">
                         <div class="blog-meta">
                             <span>📅 September 2025</span>
                             <span>📁 Products</span>
                         </div>
-                        <h3>ACDelco Batteries: Quality You Can Trust</h3>
-                        <p>MEBCO is the exclusive manufacturer of ACDelco maintenance-free batteries in the region. Our products power vehicles from leading brands including GM, Ford, Toyota, Nissan, Honda, and Mazda across the Middle East and beyond.</p>
+                        <h3>ACDelco: The Only Regional Manufacturer</h3>
+                        <p>MEBCO is the exclusive manufacturer of ACDelco maintenance-free batteries in the region. Our 100% sealed, maintenance-free batteries are engineered specifically for the hot Middle Eastern climate and come with a comprehensive 12-month international warranty.</p>
                         <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="blog-card">
+                <article class="blog-card" data-category="products">
                     <div class="blog-image">🌊</div>
                     <div class="blog-content">
                         <div class="blog-meta">
                             <span>📅 September 2025</span>
                             <span>📁 Products</span>
                         </div>
-                        <h3>Beyond Automotive: Marine & Deep Cycle Solutions</h3>
-                        <p>MEBCO's product range extends beyond automotive applications. We manufacture specialized batteries for marine vessels, solar PV systems, UPS backup power, and deep cycle applications, serving diverse energy storage needs.</p>
+                        <h3>Diverse Application Solutions</h3>
+                        <p>Beyond automotive batteries for American, Japanese, Korean, and European vehicles, MEBCO manufactures specialized batteries for marine vessels, solar PV systems, UPS backup power, heavy-duty applications, and deep cycle operations.</p>
                         <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="blog-card">
+                <article class="blog-card" data-category="company">
                     <div class="blog-image">📈</div>
                     <div class="blog-content">
                         <div class="blog-meta">
                             <span>📅 August 2025</span>
                             <span>📁 Growth</span>
                         </div>
-                        <h3>Three Decades of Excellence</h3>
-                        <p>Since starting production in 1998 with a capacity of 750,000 batteries per year, MEBCO has grown to become the largest lead-acid battery manufacturer in the Arab world, with production capacity exceeding 3.4 million batteries annually.</p>
+                        <h3>Remarkable Growth Journey</h3>
+                        <p>From an initial capacity of 750,000 batteries in 1998, MEBCO has expanded dramatically to approximately 5 million batteries annually, establishing itself as the largest lead-acid battery manufacturer in the Arab world.</p>
                         <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
 
-                <article class="blog-card">
+                <article class="blog-card" data-category="company">
                     <div class="blog-image">🏭</div>
                     <div class="blog-content">
                         <div class="blog-meta">
@@ -324,7 +759,33 @@
                             <span>📁 Facility</span>
                         </div>
                         <h3>Strategic Location in Dammam</h3>
-                        <p>Located in the 2nd Industrial City near the Dammam seaport in Saudi Arabia, MEBCO's facility is strategically positioned for efficient distribution throughout the Middle East, South Africa, the Levant, and international markets.</p>
+                        <p>Situated in the 2nd Industrial City near Dammam seaport, MEBCO's facility is perfectly positioned to serve the GCC, Middle East, and global markets. We export to Egypt, Syria, Lebanon, Yemen, Jordan, and beyond under multiple brand names.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="technology">
+                    <div class="blog-image">🏆</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 July 2025</span>
+                            <span>📁 Quality</span>
+                        </div>
+                        <h3>Certified Excellence</h3>
+                        <p>MEBCO maintains multiple quality certifications including ISO 9001, ISO 14001, ISO TS 16949, and OHSAS 18001. Our commitment to quality and environmental standards ensures every battery meets international automotive requirements.</p>
+                        <a href="#" class="read-more">Read More</a>
+                    </div>
+                </article>
+
+                <article class="blog-card" data-category="products">
+                    <div class="blog-image">⚡</div>
+                    <div class="blog-content">
+                        <div class="blog-meta">
+                            <span>📅 July 2025</span>
+                            <span>📁 Innovation</span>
+                        </div>
+                        <h3>Climate-Engineered Performance</h3>
+                        <p>All MEBCO batteries are specifically engineered for hot climate conditions. Our maintenance-free design means true "install it and forget it" convenience - batteries are completely sealed and never require water or acid addition.</p>
                         <a href="#" class="read-more">Read More</a>
                     </div>
                 </article>
@@ -338,45 +799,74 @@
             
             <div class="about-content">
                 <div class="about-card">
-                    <h3>Manufacturing Excellence</h3>
-                    <p>MEBCO specializes in manufacturing automotive sealed maintenance-free batteries for all vehicle types. Our advanced technology plant represents the pinnacle of battery manufacturing in the region.</p>
+                    <h3><span class="icon">🔧</span> Manufacturing Excellence</h3>
+                    <p>MEBCO operates the largest and most advanced lead-acid battery manufacturing plant in the Arab world. We specialize in automotive sealed maintenance-free batteries using state-of-the-art stamped grid technology and rigorous quality control processes.</p>
                 </div>
 
                 <div class="about-card">
-                    <h3>Product Range</h3>
-                    <p>We produce batteries for automotive applications, marine vessels, solar PV systems, UPS backup power, and deep cycle requirements. All products are manufactured to the highest quality standards under the trusted ACDelco brand.</p>
+                    <h3><span class="icon">📦</span> Comprehensive Product Range</h3>
+                    <p>We produce batteries for automotive (American, Asian, European vehicles), marine, solar PV, UPS, heavy-duty, and deep cycle applications. All products are manufactured under the trusted ACDelco brand with exceptional quality standards.</p>
                 </div>
 
                 <div class="about-card">
-                    <h3>Market Leadership</h3>
-                    <p>As the largest lead-acid battery manufacturer in the Arab world, we serve major automotive manufacturers and supply markets across the Middle East, Africa, and Asia with reliable energy storage solutions.</p>
+                    <h3><span class="icon">🌍</span> Market Leadership</h3>
+                    <p>As the largest manufacturer in the region, we supply major automotive brands including GM, Ford, Chrysler, Toyota, Nissan, Fiat, Honda, and Mazda. Our distribution spans the entire GCC, Middle East, and international markets.</p>
                 </div>
 
                 <div class="about-card">
-                    <h3>Economic Partnership</h3>
-                    <p>Established in 1995 as part of an economic offset program, MEBCO represents a successful strategic partnership between international automotive leaders and prominent Saudi business groups.</p>
+                    <h3><span class="icon">🤝</span> Strategic Partnership</h3>
+                    <p>Established in 1995 through an economic offset program, MEBCO represents a successful joint venture between Clarios (world's leading battery manufacturer) and prominent Saudi business groups, combining global expertise with local knowledge.</p>
                 </div>
 
                 <div class="about-card">
-                    <h3>Innovation & Technology</h3>
-                    <p>Our facility utilizes the latest battery manufacturing technology, ensuring consistent quality, reliability, and performance. We continuously invest in innovation to meet evolving energy storage needs.</p>
+                    <h3><span class="icon">💡</span> Innovation & Technology</h3>
+                    <p>Our facility features the latest battery production technology with two decades of manufacturing expertise. We continuously invest in innovation to produce batteries that excel in the challenging Middle Eastern climate.</p>
                 </div>
 
                 <div class="about-card">
-                    <h3>Quality Commitment</h3>
-                    <p>Every battery that leaves our facility meets stringent quality standards. We're committed to providing power solutions that automotive manufacturers and consumers can trust for long-lasting performance.</p>
+                    <h3><span class="icon">✅</span> Quality Commitment</h3>
+                    <p>Every MEBCO battery meets stringent international quality standards. We maintain ISO 9001, ISO 14001, ISO TS 16949, and OHSAS 18001 certifications, ensuring environmental responsibility and product excellence.</p>
+                </div>
+            </div>
+
+            <div class="certifications">
+                <div class="cert-badge">
+                    <div class="cert-icon">🏅</div>
+                    <strong>ISO 9001</strong>
+                    <p>Quality Management</p>
+                </div>
+                <div class="cert-badge">
+                    <div class="cert-icon">🌿</div>
+                    <strong>ISO 14001</strong>
+                    <p>Environmental</p>
+                </div>
+                <div class="cert-badge">
+                    <div class="cert-icon">🚗</div>
+                    <strong>ISO TS 16949</strong>
+                    <p>Automotive</p>
+                </div>
+                <div class="cert-badge">
+                    <div class="cert-icon">🛡️</div>
+                    <strong>OHSAS 18001</strong>
+                    <p>Health & Safety</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contact">
+    <section class="timeline-section" id="timeline">
         <div class="container">
-            <h3>MEBCO - Middle East Battery Company</h3>
-            <p>2nd Industrial City, Dammam, Saudi Arabia</p>
-            <p style="margin-top: 1rem;">Powering Progress Since 1995</p>
-            <p style="margin-top: 2rem; font-size: 0.9rem;">&copy; 2025 MEBCO. All rights reserved.</p>
-        </div>
-    </footer>
-</body>
-</html>
+            <h2 class="section-title">Our Journey</h2>
+            
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <div class="timeline-year">1995</div>
+                        <h3>Company Established</h3>
+                        <p>MEBCO was founded as part of an economic offset program, bringing together General Motors (through Delphi) and leading Saudi companies in a strategic partnership.</p>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
