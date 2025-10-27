@@ -216,6 +216,8 @@
                         <ul class="list-disc list-inside space-y-2 text-stone-600">
                             <li>Integrate <strong>Azure Key Vault</strong> for secure storage and retrieval of credentials.</li>
                             <li>Use <strong>Azure Functions or Logic Apps</strong> for automated processing of data from Blob Storage.</li>
+                            <li>Prepare data for visualization (e.g., set up connection to **Azure Data Explorer**).</li>
+                            <li>Create the first **Power BI dashboard** connecting to the Azure data source.</li>
                             <li>Enable detailed cost and performance monitoring dashboards.</li>
                         </ul>
                     </div>
@@ -240,6 +242,7 @@
                         <ul class="list-disc list-inside space-y-2 text-stone-600">
                             <li>Introduce <strong>Infrastructure-as-Code (IaC)</strong> using <strong>Terraform or Bicep</strong>.</li>
                             <li>Deploy the <strong>full solution</strong> (IoT Hub + Storage + Container) via IaC.</li>
+                            <li>Automate Power BI Report Server or Embedded deployment (if applicable).</li>
                             <li>Add <strong>approval gates</strong> and environment promotion steps (Dev → Prod).</li>
                         </ul>
                     </div>
@@ -256,13 +259,14 @@
                         <span class="bg-indigo-100 text-indigo-700 p-3 rounded-lg shadow-sm">IoT Hub</span>
                         <span class="text-2xl text-stone-400">→</span>
                         <span class="bg-blue-100 text-blue-700 p-3 rounded-lg shadow-sm">Cloud Storage</span>
-                        <span class="text-2xl text-stone-400">+</span>
-                        <span class="bg-yellow-100 text-yellow-700 p-3 rounded-lg shadow-sm">Monitoring & IaC</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-yellow-100 text-yellow-700 p-3 rounded-lg shadow-sm">Power BI Dashboard</span>
                     </div>
 
                     <ul class="list-disc list-inside space-y-2 text-stone-600 text-lg">
-                        <li><strong>End-to-end secure pipeline:</strong> PLC → Gateway → Azure IoT Hub → Cloud Storage with Key Vault integration.</li>
-                        <li><strong>Automated CI/CD deployment</strong> with full monitoring, secrets management, and Infrastructure-as-Code.</li>
+                        <li>End-to-end secure pipeline: PLC → Gateway → Azure IoT Hub → Cloud Storage with Key Vault integration.</li>
+                        <li>Automated CI/CD deployment with full monitoring, secrets management, and Infrastructure-as-Code.</li>
+                        <li>Operational Real-time Dashboard created in Power BI for data consumption.</li>
                     </ul>
                 </div>
             </div>
