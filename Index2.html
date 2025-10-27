@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Industrial IoT & Cloud Integration Roadmap</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.3/dist/chart.umd.min.js"></script>
+    <style>
+        .phase-button {
+            transition: all 0.3s ease;
+        }
+        .phase-button-active {
+            background-color: #0d9488;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .phase-button-inactive {
+            background-color: #f1f5f9;
+            color: #334155;
+        }
+        .phase-content {
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 250px;
+            max-height: 300px;
+        }
+        @media (max-width: 768px) {
+            .chart-container {
+                height: 200px;
+                max-height: 250px;
+            }
+        }
+    </style>
+    <!-- Chosen Palette: Warm Neutral (Stone) with Teal Accent -->
+    <!-- Application Structure Plan: A single-page application structured by project phase. A top-level Chart.js Gantt chart visualizes the full 6-month timeline. Below this, a tabbed/stepper navigation allows users to select a specific phase (1, 2, or 3). Clicking a tab dynamically shows the content for that phase, including its goal, a grid of "Area" cards detailing key actions, and a "Deliverables" section. The deliverables are presented as both a text list and a custom HTML/Tailwind-based process flow diagram. This structure was chosen to mirror the report's logical three-phase progression while making it interactive. It allows users to see the high-level overview (chart) and then drill down into the specific details of each phase (tabs) in a clean, non-overwhelming way. -->
+    <!-- Visualization & Content Choices: 
+        1. Report Info: Full 6-Month Timeline (3 phases, 2 months each). Goal: Inform (High-Level Overview). Viz: Horizontal Bar Chart (Gantt-style). Interaction: None (static view). Justification: Provides an immediate visual summary of the entire project's duration and structure. Library: Chart.js.
+        2. Report Info: Phase-specific content (Goal, Areas, Actions). Goal: Organize/Inform. Viz: Tabbed content sections with "Area" cards (HTML/Tailwind Grid). Interaction: Click phase button to show/hide relevant content. Justification: Breaks the dense report into manageable, logical chunks, matching the user's mental model of "phases". Library: Vanilla JS.
+        3. Report Info: Phase-specific Deliverables (data flow). Goal: Organize/Inform. Viz: HTML/Tailwind Flexbox-based Process Flow Diagram. Interaction: None (static view). Justification: Visually synthesizes the text-based deliverable into an easy-to-understand data flow diagram, which is more impactful than text alone. This is a custom HTML diagram. Library: HTML/Tailwind.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="bg-stone-50 text-stone-800 font-sans leading-relaxed">
+
+    <div class="container mx-auto max-w-7xl p-4 md:p-8">
+        
+        <header class="text-center mb-12">
+            <h1 class="text-4xl md:text-5xl font-bold text-teal-700 mb-4"> Industrial IoT & Cloud Integration</h1>
+            <p class="text-xl text-stone-600 max-w-4xl mx-auto">
+                This interactive roadmap details a focused, six-month plan to integrate PLC data with Azure cloud services, emphasizing automation, security, and real-time data flow.
+            </p>
+        </header>
+
+        <section class="mb-12">
+            <h2 class="text-3xl font-semibold text-center text-stone-700 mb-6">Roadmap Overview</h2>
+            <div class="chart-container bg-white rounded-lg shadow-lg p-4">
+                <canvas id="roadmapChart"></canvas>
+            </div>
+            <p class="text-center text-stone-500 mt-2">A high-level view of the three project phases over the 6-month timeline.</p>
+        </section>
+
+        <nav class="flex flex-col sm:flex-row justify-center space-y-2 sm:space-y-0 sm:space-x-4 mb-12" aria-label="Roadmap Phases">
+            <button id="btn-phase1" class="phase-button phase-button-active text-lg font-semibold py-4 px-6 rounded-lg shadow-sm w-full sm:w-auto" onclick="showPhase(1)">
+                Phase 1: Foundation (Months 1-2)
+            </button>
+            <button id="btn-phase2" class="phase-button phase-button-inactive text-lg font-semibold py-4 px-6 rounded-lg shadow-sm w-full sm:w-auto" onclick="showPhase(2)">
+                Phase 2: Connection (Months 3-4)
+            </button>
+            <button id="btn-phase3" class="phase-button phase-button-inactive text-lg font-semibold py-4 px-6 rounded-lg shadow-sm w-full sm:w-auto" onclick="showPhase(3)">
+                Phase 3: Optimization (Months 5-6)
+            </button>
+        </nav>
+
+        <main>
+            <div id="phase1" class="phase-content">
+                <section class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-teal-700 mb-3">Phase 1: Build the Core Foundation</h2>
+                    <p class="text-xl text-stone-600"><strong>Goal:</strong> Establish fundamental cloud, IoT, and data integration skills, creating the initial PLC-to-cloud data bridge.</p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Azure Cloud</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Create Azure account (Free Tier).</li>
+                            <li>Learn basics: Resource Groups, Storage, Virtual Networks.</li>
+                            <li>Deploy first <strong>Azure IoT Hub</strong> instance.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Azure IoT Hub</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Register a test device within the IoT Hub.</li>
+                            <li>Send simulated telemetry using the <strong>Python SDK</strong>.</li>
+                            <li>Monitor device messages in the Azure Portal.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Python for PLC Integration</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Install <code>pylogix</code> and <code>python-opcua</code>.</li>
+                            <li>Connect to a PLC simulator or test PLC.</li>
+                            <li><strong>Read/write basic tags</strong> (BOOL, INT, REAL).</li>
+                            <li>Convert retrieved PLC data into <strong>JSON format</strong>.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">CI/CD Pipelines</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Create first Azure DevOps or GitHub Actions pipeline.</li>
+                            <li>Automate running a basic Python data collector script.</li>
+                            <li>Add basic build/test stages to the pipeline.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-2xl p-8">
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Deliverable (End of Month 2)</h3>
+                    
+                    <div class="flex items-center justify-center flex-wrap gap-4 text-center text-sm md:text-base font-medium mb-6 p-4 bg-stone-100 rounded-lg">
+                        <span class="bg-sky-100 text-sky-700 p-3 rounded-lg shadow-sm">PLC Data</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-green-100 text-green-700 p-3 rounded-lg shadow-sm">Python Script</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-indigo-100 text-indigo-700 p-3 rounded-lg shadow-sm">Simulated IoT Hub Messages</span>
+                    </div>
+
+                    <ul class="list-disc list-inside space-y-2 text-stone-600 text-lg">
+                        <li><strong>Python script</strong> successfully reading PLC data and sending it as simulated messages to IoT Hub.</li>
+                        <li><strong>Basic CI/CD pipeline</strong> automating the data collector script's deployment.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="phase2" class="phase-content hidden">
+                <section class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-teal-700 mb-3">Phase 2: Connect Factory to Cloud</h2>
+                    <p class="text-xl text-stone-600"><strong>Goal:</strong> Enable a full, robust data flow from the PLC through a dedicated gateway and into Azure storage, implementing containerization.</p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Azure Cloud</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Configure IoT Hub routes to output data to <strong>Blob Storage</strong> / <strong>Azure Functions</strong>.</li>
+                            <li>Set up <strong>Azure Monitor</strong> for basic diagnostics and logging.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Azure IoT Hub</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Modify gateway to send <strong>real PLC data</strong> via Python.</li>
+                            <li>Implement message <strong>batching and retry logic</strong> for reliability.</li>
+                            <li>Enable and use <strong>device twin sync</strong> for command and control.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Python for PLC Integration</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Build a functional <strong>Gateway application</strong>: PLC → JSON → IoT Hub.</li>
+                            <li>Add <strong>modular design</strong> and comprehensive logging.</li>
+                            <li>Refactor to handle <strong>multiple PLC sources</strong> simultaneously.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">CI/CD Pipelines</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li><strong>Containerize</strong> the Python gateway application using <strong>Docker</strong>.</li>
+                            <li>Build the Docker image and <strong>push the container automatically</strong> to a registry.</li>
+                            <li>Implement environment variables and secrets management for the IoT Hub connection string.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-2xl p-8">
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Deliverable (End of Month 4)</h3>
+                    
+                    <div class="flex items-center justify-center flex-wrap gap-4 text-center text-sm md:text-base font-medium mb-6 p-4 bg-stone-100 rounded-lg">
+                        <span class="bg-sky-100 text-sky-700 p-3 rounded-lg shadow-sm">PLC</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-green-100 text-green-700 p-3 rounded-lg shadow-sm">Python Gateway</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-indigo-100 text-indigo-700 p-3 rounded-lg shadow-sm">IoT Hub</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-blue-100 text-blue-700 p-3 rounded-lg shadow-sm">Blob Storage</span>
+                    </div>
+
+                    <ul class="list-disc list-inside space-y-2 text-stone-600 text-lg">
+                        <li><strong>Full data pipeline established:</strong> PLC → Python Gateway → IoT Hub → Blob Storage.</li>
+                        <li><strong>Automated container deployment pipeline</strong> for the Python Gateway.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div id="phase3" class="phase-content hidden">
+                <section class="text-center mb-10">
+                    <h2 class="text-3xl font-bold text-teal-700 mb-3">Phase 3: Optimize and Secure</h2>
+                    <p class="text-xl text-stone-600"><strong>Goal:</strong> Make the entire solution production-ready by focusing on security, scalability, and Infrastructure-as-Code (IaC).</p>
+                </section>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-10">
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Azure Cloud</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Integrate <strong>Azure Key Vault</strong> for secure storage and retrieval of credentials.</li>
+                            <li>Use <strong>Azure Functions or Logic Apps</strong> for automated processing of data from Blob Storage.</li>
+                            <li>Enable detailed cost and performance monitoring dashboards.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Azure IoT Hub</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Implement complex message <strong>routing rules</strong> based on content (e.g., alarms vs. telemetry).</li>
+                            <li>Configure <strong>alerts and metrics</strong> for latency and failure rates.</li>
+                            <li>Scale IoT Hub tiers if performance metrics dictate the need.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">Python for PLC Integration</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Add advanced <strong>exception handling and reconnect logic</strong> to the gateway.</li>
+                            <li>Optimize data transfer rate and payload size for efficiency.</li>
+                            <li>Document the full PLC-to-Cloud communication schema.</li>
+                        </ul>
+                    </div>
+                    <div class="bg-white rounded-lg shadow-lg p-6">
+                        <h3 class="text-2xl font-semibold text-stone-700 mb-4">CI/CD Pipelines</h3>
+                        <ul class="list-disc list-inside space-y-2 text-stone-600">
+                            <li>Introduce <strong>Infrastructure-as-Code (IaC)</strong> using <strong>Terraform or Bicep</strong>.</li>
+                            <li>Deploy the <strong>full solution</strong> (IoT Hub + Storage + Container) via IaC.</li>
+                            <li>Add <strong>approval gates</strong> and environment promotion steps (Dev → Prod).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-2xl p-8">
+                    <h3 class="text-2xl font-semibold text-stone-700 mb-6">Deliverable (End of Month 6)</h3>
+                    
+                    <div class="flex items-center justify-center flex-wrap gap-4 text-center text-sm md:text-base font-medium mb-6 p-4 bg-stone-100 rounded-lg">
+                        <span class="bg-lime-100 text-lime-700 p-3 rounded-lg shadow-sm">Secure PLC</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-green-100 text-green-700 p-3 rounded-lg shadow-sm">Gateway</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-indigo-100 text-indigo-700 p-3 rounded-lg shadow-sm">IoT Hub</span>
+                        <span class="text-2xl text-stone-400">→</span>
+                        <span class="bg-blue-100 text-blue-700 p-3 rounded-lg shadow-sm">Cloud Storage</span>
+                        <span class="text-2xl text-stone-400">+</span>
+                        <span class="bg-yellow-100 text-yellow-700 p-3 rounded-lg shadow-sm">Monitoring & IaC</span>
+                    </div>
+
+                    <ul class="list-disc list-inside space-y-2 text-stone-600 text-lg">
+                        <li><strong>End-to-end secure pipeline:</strong> PLC → Gateway → Azure IoT Hub → Cloud Storage with Key Vault integration.</li>
+                        <li><strong>Automated CI/CD deployment</strong> with full monitoring, secrets management, and Infrastructure-as-Code.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <footer class="mt-16 pt-8 border-t border-stone-200 text-center text-stone-500 text-sm">
+            All rights reserved for Hassene Nahdi Software & AI engineer
+        </footer>
+    </div>
+
+    <script>
+        const phaseButtons = {
+            1: document.getElementById('btn-phase1'),
+            2: document.getElementById('btn-phase2'),
+            3: document.getElementById('btn-phase3')
+        };
+        const phaseContents = {
+            1: document.getElementById('phase1'),
+            2: document.getElementById('phase2'),
+            3: document.getElementById('phase3')
+        };
+
+        function showPhase(phaseNum) {
+            Object.values(phaseContents).forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            Object.values(phaseButtons).forEach(button => {
+                button.classList.remove('phase-button-active');
+                button.classList.add('phase-button-inactive');
+            });
+
+            phaseContents[phaseNum].classList.remove('hidden');
+            
+            phaseButtons[phaseNum].classList.add('phase-button-active');
+            phaseButtons[phaseNum].classList.remove('phase-button-inactive');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showPhase(1);
+
+            const ctx = document.getElementById('roadmapChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Phase 1: Foundation', 'Phase 2: Connection', 'Phase 3: Optimization'],
+                    datasets: [{
+                        label: 'Timeline (Months)',
+                        data: [
+                            [0, 2],
+                            [2, 4],
+                            [4, 6]
+                        ],
+                        backgroundColor: [
+                            'rgba(59, 130, 246, 0.7)',
+                            'rgba(16, 185, 129, 0.7)',
+                            'rgba(139, 92, 246, 0.7)'
+                        ],
+                        borderColor: [
+                            'rgba(59, 130, 246, 1)',
+                            'rgba(16, 185, 129, 1)',
+                            'rgba(139, 92, 246, 1)'
+                        ],
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ` Months ${context.raw[0]} to ${context.raw[1]}`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            min: 0,
+                            max: 6,
+                            grid: {
+                                display: true,
+                                color: 'rgba(200, 200, 200, 0.2)'
+                            },
+                            title: {
+                                display: true,
+                                text: 'Months',
+                                font: {
+                                    size: 14
+                                }
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: {
+                                    size: 14,
+                                    weight: '500'
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
